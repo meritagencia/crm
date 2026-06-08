@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IA Day – Transforme Seu Atendimento com Inteligência Artificial</title>
+  <meta name="description" content="Assista ao vídeo e descubra como a IA pode transformar o atendimento da sua empresa. Preencha o formulário e fale com um especialista." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+/* ============================================================
+   RESET + TOKENS
+============================================================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:       #080810;
+  --bg-s:     #04040c;
+  --bg-card:  #0f0f1a;
+  --bg-el:    #16162a;
+  --ink:      #f0f0f8;
+  --ink-dim:  #8888aa;
+  --ink-muted:#44445a;
+  --accent:   #2753E3;
+  --accent-l: #4d70f0;
+  --accent-glow: rgba(39,83,227,.28);
+  --danger:   #ff3b30;
+  --border:   #1a1a2e;
+  --border-bright: #2a2a42;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-s);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  text-rendering: optimizeSpeed;
+}
+.container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+img, iframe { max-width: 100%; }
+
+/* ============================================================
+   GRID PATTERN BG
+============================================================ */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(39,83,227,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(39,83,227,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ============================================================
+   TOPBAR URGÊNCIA
+============================================================ */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: linear-gradient(90deg, #b0001a, #e8132a, #b0001a);
+  background-size: 200% 100%;
+  animation: topbar-shimmer 3s ease infinite;
+  color: #fff;
+  padding: 11px 20px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  overflow: hidden;
+}
+@keyframes topbar-shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+.topbar::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+  animation: sweep 3s ease-in-out infinite;
+}
+@keyframes sweep { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+.topbar-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 0 rgba(255,255,255,.6);
+  animation: topbar-pulse 1.4s infinite; flex-shrink: 0;
+}
+@keyframes topbar-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,255,255,.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+.hero {
+  padding: 72px 0 80px;
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 0%,   rgba(39,83,227,.1),  transparent),
+    radial-gradient(ellipse 60% 60% at 10% 100%,  rgba(39,83,227,.06), transparent);
+  position: relative; overflow: hidden;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-el); border: 1px solid var(--border-bright);
+  padding: 7px 16px; border-radius: 100px;
+  font-family: 'SFMono-Regular', 'Roboto Mono', Consolas, monospace; font-size: 12px;
+  color: var(--ink-dim); margin-bottom: 24px;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.hero h1 {
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: .95; letter-spacing: -.02em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 .hl { color: var(--accent); }
+
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--ink-dim); max-width: 600px; margin-bottom: 36px;
+}
+.hero-sub strong { color: var(--ink); }
+
+/* ============================================================
+   BTN BRUTALISTA
+============================================================ */
+.btn-brutalist {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #fff;
+  padding: 20px 36px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 15px; font-weight: 900;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none; border: none;
+  border: 2px solid rgba(255,255,255,.15);
+  box-shadow: 5px 5px 0 rgba(0,0,0,.5);
+  transition: box-shadow .15s, transform .15s;
+  cursor: pointer; position: relative; overflow: hidden;
+}
+.btn-brutalist::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+  transform: translateX(-100%); transition: transform .4s;
+}
+.btn-brutalist:hover::after { transform: translateX(100%); }
+.btn-brutalist:hover { box-shadow: 2px 2px 0 rgba(0,0,0,.5); transform: translate(3px,3px); }
+
+/* ============================================================
+   EYEBROW + SECTION
+============================================================ */
+.section { padding: 72px 0; }
+.eyebrow {
+  display: inline-block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent);
+  font-family: 'SFMono-Regular', 'Roboto Mono', Consolas, monospace;
+  border: 1px solid rgba(39,83,227,.35); padding: 5px 12px; border-radius: 100px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.05; letter-spacing: -.015em; text-transform: uppercase;
+  margin-bottom: 14px; max-width: 800px;
+}
+.section-title .hl { color: var(--accent); }
+.section-sub { font-size: 16px; color: var(--ink-dim); max-width: 640px; margin-bottom: 40px; line-height: 1.65; }
+
+/* ============================================================
+   REVEAL ANIMATION
+============================================================ */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   VIDEO SECTION
+============================================================ */
+.video-section { padding: 52px 0 28px; }
+.video-tag-wrap { text-align: center; margin-bottom: 24px; }
+.video-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-el); border: 1px solid var(--border-bright);
+  padding: 8px 18px; border-radius: 100px;
+  font-family: 'SFMono-Regular', 'Roboto Mono', Consolas, monospace;
+  font-size: 12px; color: var(--ink-dim); letter-spacing: .08em;
+}
+.video-tag-dot {
+  width: 7px; height: 7px; background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+  flex-shrink: 0;
+}
+.video-container {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+.video-glow {
+  position: absolute; inset: -2px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-l), #1236b0);
+  border-radius: 14px;
+  z-index: 0;
+  opacity: .8;
+}
+.video-inner {
+  position: relative; z-index: 1;
+  background: var(--bg-card);
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+.video-inner iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* ============================================================
+   CTA SECTION
+============================================================ */
+.cta-section { padding: 28px 0 64px; text-align: center; }
+.cta-section h2 {
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: clamp(28px, 5vw, 50px);
+  text-transform: uppercase; letter-spacing: -.015em;
+  margin-bottom: 12px;
+}
+.cta-section h2 .hl { color: var(--accent); }
+.cta-section p { color: var(--ink-dim); font-size: 16px; margin-bottom: 36px; }
+
+/* ============================================================
+   OVERLAY / MODAL
+============================================================ */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(4,4,12,.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
+}
+.overlay.active { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-top: 3px solid var(--accent);
+  border-radius: 10px;
+  width: 100%; max-width: 560px; max-height: 90vh;
+  overflow-y: auto; padding: 36px 32px;
+  position: relative;
+  transform: translateY(30px) scale(.97);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+  box-shadow: 0 40px 80px rgba(0,0,0,.7);
+}
+.overlay.active .modal { transform: translateY(0) scale(1); }
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--bg-el); border: 1px solid var(--border-bright);
+  color: var(--ink-dim);
+  width: 30px; height: 30px; border-radius: 50%;
+  font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, color .2s; line-height: 1;
+}
+.modal-close:hover { background: rgba(39,83,227,.2); color: var(--accent-l); }
+
+.modal-header { margin-bottom: 24px; }
+.modal-header h2 {
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: 24px; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 6px;
+}
+.modal-header p { color: var(--ink-dim); font-size: 13px; line-height: 1.6; }
+
+/* Progress */
+.progress-bar-wrap {
+  background: var(--border-bright); border-radius: 999px;
+  height: 3px; margin-bottom: 28px; overflow: hidden;
+}
+.progress-bar {
+  height: 100%; background: var(--accent); border-radius: 999px;
+  transition: width .4s ease; width: 0%;
+}
+
+/* Steps */
+.step { display: none; }
+.step.active { display: block; }
+
+/* Field */
+.field { margin-bottom: 18px; }
+.field label {
+  display: block; font-size: 11px; font-weight: 700;
+  color: var(--ink-dim); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 7px;
+  font-family: 'SFMono-Regular', 'Roboto Mono', Consolas, monospace;
+}
+.field label span.req { color: var(--accent); margin-left: 2px; }
+
+.field input[type="text"],
+.field input[type="tel"],
+.field select {
+  width: 100%;
+  background: var(--bg-el);
+  border: 1px solid var(--border-bright);
+  border-radius: 6px;
+  color: var(--ink);
+  font-size: 14px; font-family: Inter, system-ui, sans-serif;
+  padding: 12px 14px; outline: none;
+  transition: border-color .2s, background .2s;
+  -webkit-appearance: none;
+}
+.field input:focus, .field select:focus {
+  border-color: var(--accent);
+  background: rgba(39,83,227,.05);
+}
+.field select option { background: var(--bg-el); }
+
+/* Radio group */
+.radio-group { display: flex; flex-direction: column; gap: 8px; }
+.radio-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-el); border: 1px solid var(--border-bright);
+  border-radius: 6px; padding: 12px 14px; cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.radio-item:hover { border-color: var(--accent); background: rgba(39,83,227,.06); }
+.radio-item input { display: none; }
+.radio-item .indicator {
+  width: 16px; height: 16px; border: 2px solid var(--border-bright);
+  border-radius: 50%; flex-shrink: 0; position: relative; transition: border-color .2s;
+}
+.radio-item.selected .indicator { border-color: var(--accent); }
+.radio-item.selected .indicator::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 7px; height: 7px; background: var(--accent); border-radius: 50%;
+}
+.radio-item.selected { border-color: var(--accent); background: rgba(39,83,227,.08); }
+.radio-item span { font-size: 14px; font-weight: 500; color: var(--ink); }
+
+/* Conditional field */
+.conditional-field { max-height: 0; overflow: hidden; opacity: 0; transition: max-height .35s ease, opacity .3s; }
+.conditional-field.show { max-height: 200px; opacity: 1; }
+
+/* Nav buttons */
+.modal-nav { display: flex; gap: 10px; margin-top: 24px; }
+.btn-back {
+  flex: 0 0 auto;
+  background: var(--bg-el); border: 1px solid var(--border-bright);
+  color: var(--ink-dim); font-size: 13px; font-weight: 700;
+  padding: 12px 18px; border-radius: 6px; cursor: pointer;
+  transition: background .2s; font-family: Inter, system-ui, sans-serif;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.btn-back:hover { background: var(--border-bright); }
+
+.btn-next, .btn-submit {
+  flex: 1;
+  background: var(--accent); border: none;
+  color: #fff; font-size: 14px; font-weight: 900;
+  padding: 13px 20px; border-radius: 6px; cursor: pointer;
+  transition: opacity .15s, transform .15s, box-shadow .15s;
+  font-family: Inter, system-ui, sans-serif;
+  letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.4);
+}
+.btn-next:hover, .btn-submit:hover { box-shadow: 1px 1px 0 rgba(0,0,0,.4); transform: translate(2px,2px); }
+
+/* Success */
+.success-screen { display: none; text-align: center; padding: 16px 0; }
+.success-icon {
+  width: 64px; height: 64px;
+  background: rgba(39,83,227,.12); border: 2px solid var(--accent);
+  border-radius: 50%; font-size: 28px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.success-screen h2 {
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: 26px; text-transform: uppercase; margin-bottom: 10px;
+}
+.success-screen p { color: var(--ink-dim); font-size: 14px; line-height: 1.7; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  padding: 28px 0; border-top: 1px solid var(--border);
+  color: var(--ink-muted); font-size: 12px; text-align: center;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 520px) {
+  .modal { padding: 28px 18px; }
+  .modal-header h2 { font-size: 20px; }
+  .btn-brutalist { font-size: 13px; padding: 16px 24px; }
+  .topbar { font-size: 11px; padding: 9px 12px; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ═══ TOPBAR URGÊNCIA ═══ -->
+  <div class="topbar" role="alert">
+    <span class="topbar-dot"></span>
+    <span>🚨 Não saia dessa página sem ver este vídeo 🚨</span>
+  </div>
+
+
+
+  <!-- ═══ VÍDEO ═══ -->
+  <section class="video-section bg-grid">
+    <div class="container">
+      <div class="video-tag-wrap reveal">
+        <span class="video-tag">
+          <span class="video-tag-dot"></span>
+          EXCLUSIVO PARA VOCÊ · ASSISTA AGORA
+        </span>
+      </div>
+      <div class="video-container reveal">
+        <div class="video-glow"></div>
+        <div class="video-inner">
+          <iframe
+            id="panda-8f3c56cd-4c10-4d2a-8e45-59b2ef29a7d2"
+            src="https://player-vz-de871842-4a9.tv.pandavideo.com.br/embed/?v=8f3c56cd-4c10-4d2a-8e45-59b2ef29a7d2"
+            style="border:none;"
+            allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture"
+            allowfullscreen="true"
+            fetchpriority="high">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section">
+    <div class="container reveal">
+      <div class="eyebrow">Próximo passo</div>
+      <h2>Pronto para <span class="hl">transformar</span><br>seu atendimento?</h2>
+      <p>Preencha o formulário e fale com um especialista em IA para o seu negócio.</p>
+      <button id="open-form-btn" class="btn-brutalist" onclick="openModal()">
+        💬 &nbsp;Quero falar com um especialista
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ MODAL / FORMULÁRIO ═══ -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="closeOnOverlay(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()" aria-label="Fechar">✕</button>
+
+      <div class="modal-header">
+        <h2 id="modal-title">Vamos Conversar 🚀</h2>
+        <p>Preencha as informações abaixo e um especialista entrará em contato com você.</p>
+      </div>
+
+      <div class="progress-bar-wrap" aria-hidden="true">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step active" id="step-1">
+        <div class="field">
+          <label for="nome">Seu Nome <span class="req">*</span></label>
+          <input type="text" id="nome" placeholder="Ex: João Silva" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="whatsapp">Seu WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="empresa">Nome da sua Empresa <span class="req">*</span></label>
+          <input type="text" id="empresa" placeholder="Ex: Minha Empresa Ltda." />
+        </div>
+        <div class="field">
+          <label for="segmento">Segmento da Sua Empresa <span class="req">*</span></label>
+          <select id="segmento">
+            <option value="" disabled selected>Selecione o segmento</option>
+            <option value="varejo">Varejo / E-commerce</option>
+            <option value="saude">Saúde / Clínicas</option>
+            <option value="educacao">Educação / Cursos</option>
+            <option value="imobiliario">Imobiliário</option>
+            <option value="financeiro">Financeiro / Seguros</option>
+            <option value="tecnologia">Tecnologia / SaaS</option>
+            <option value="servicos">Serviços Profissionais</option>
+            <option value="industria">Indústria / Manufatura</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-next" onclick="nextStep(1)">PRÓXIMO →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step" id="step-2">
+        <div class="field">
+          <label>Hoje como é feito o atendimento? <span class="req">*</span></label>
+          <div class="radio-group" id="atendimento-group">
+            <label class="radio-item" onclick="selectRadio('atendimento','whatsapp',this)">
+              <input type="radio" name="atendimento" value="whatsapp" />
+              <div class="indicator"></div>
+              <span>📱 Uso apenas o Aplicativo do WhatsApp</span>
+            </label>
+            <label class="radio-item" onclick="selectRadio('atendimento','crm',this)">
+              <input type="radio" name="atendimento" value="crm" />
+              <div class="indicator"></div>
+              <span>🖥️ Já utilizo um CRM</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Campo condicional: qual CRM -->
+        <div class="conditional-field" id="crm-field">
+          <div class="field" style="margin-top:12px;">
+            <label for="qual-crm">Qual o CRM de Gestão? <span class="req">*</span></label>
+            <input type="text" id="qual-crm" placeholder="Ex: HubSpot, RD Station, Salesforce..." />
+          </div>
+        </div>
+
+        <div class="modal-nav">
+          <button class="btn-back" onclick="prevStep(2)">← VOLTAR</button>
+          <button class="btn-next" onclick="nextStep(2)">PRÓXIMO →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" id="step-3">
+        <div class="field">
+          <label for="numeros">Quantos números utiliza para atendimentos? <span class="req">*</span></label>
+          <input type="text" id="numeros" placeholder="Ex: 1, 2, 5..." />
+        </div>
+        <div class="field">
+          <label for="funcionarios">Quantos funcionários fazem os atendimentos? <span class="req">*</span></label>
+          <input type="text" id="funcionarios" placeholder="Ex: 3, 10, 20..." />
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" onclick="prevStep(3)">← VOLTAR</button>
+          <button class="btn-next" onclick="nextStep(3)">PRÓXIMO →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" id="step-4">
+        <div class="field">
+          <label>Qual a média de atendimento por dia? <span class="req">*</span></label>
+          <div class="radio-group" id="media-group">
+            <label class="radio-item" onclick="selectRadio('media','menos50',this)">
+              <input type="radio" name="media" value="menos50" />
+              <div class="indicator"></div>
+              <span>📊 Menos de 50 leads</span>
+            </label>
+            <label class="radio-item" onclick="selectRadio('media','50-100',this)">
+              <input type="radio" name="media" value="50-100" />
+              <div class="indicator"></div>
+              <span>📊 Entre 50 a 100 leads</span>
+            </label>
+            <label class="radio-item" onclick="selectRadio('media','100-200',this)">
+              <input type="radio" name="media" value="100-200" />
+              <div class="indicator"></div>
+              <span>📊 Entre 100 a 200 leads</span>
+            </label>
+            <label class="radio-item" onclick="selectRadio('media','mais200',this)">
+              <input type="radio" name="media" value="mais200" />
+              <div class="indicator"></div>
+              <span>🚀 Mais de 200 Leads</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-nav">
+          <button class="btn-back" onclick="prevStep(4)">← VOLTAR</button>
+          <button class="btn-submit" onclick="submitForm()">ENVIAR ✔</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="success-screen">
+        <div class="success-icon">✅</div>
+        <h2>Informações Recebidas!</h2>
+        <p>Em breve um especialista entrará em contato com você pelo WhatsApp informado. Fique de olho nas mensagens! 🚀</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <p>© 2025 · Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── State ──
+    const TOTAL_STEPS = 4;
+    let currentStep = 1;
+    const radioValues = {};
+
+    // ── Progress ──
+    function updateProgress() {
+      const pct = ((currentStep - 1) / (TOTAL_STEPS - 1)) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    }
+
+    // ── Modal ──
+    function openModal() {
+      document.getElementById('overlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('overlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function closeOnOverlay(e) {
+      if (e.target === document.getElementById('overlay')) closeModal();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── Navigation ──
+    function showStep(n) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+      currentStep = n;
+      updateProgress();
+    }
+    function nextStep(from) {
+      if (!validateStep(from)) return;
+      showStep(from + 1);
+      document.querySelector('.modal').scrollTop = 0;
+    }
+    function prevStep(from) {
+      showStep(from - 1);
+      document.querySelector('.modal').scrollTop = 0;
+    }
+
+    // ── Validation ──
+    function validateStep(step) {
+      if (step === 1) {
+        const nome = document.getElementById('nome').value.trim();
+        const wa   = document.getElementById('whatsapp').value.trim();
+        const emp  = document.getElementById('empresa').value.trim();
+        const seg  = document.getElementById('segmento').value;
+        if (!nome) return alert('Por favor, informe seu nome.'), false;
+        if (!wa)   return alert('Por favor, informe seu WhatsApp.'), false;
+        if (!emp)  return alert('Por favor, informe o nome da sua empresa.'), false;
+        if (!seg)  return alert('Por favor, selecione o segmento da sua empresa.'), false;
+      }
+      if (step === 2) {
+        if (!radioValues['atendimento']) return alert('Por favor, selecione como é feito o atendimento.'), false;
+        if (radioValues['atendimento'] === 'crm') {
+          const crm = document.getElementById('qual-crm').value.trim();
+          if (!crm) return alert('Por favor, informe o CRM que você utiliza.'), false;
+        }
+      }
+      if (step === 3) {
+        const nums = document.getElementById('numeros').value.trim();
+        const func = document.getElementById('funcionarios').value.trim();
+        if (!nums) return alert('Por favor, informe quantos números utiliza para atendimento.'), false;
+        if (!func) return alert('Por favor, informe quantos funcionários fazem atendimentos.'), false;
+      }
+      if (step === 4) {
+        if (!radioValues['media']) return alert('Por favor, selecione a média de atendimentos por dia.'), false;
+      }
+      return true;
+    }
+
+    // ── Radio selection ──
+    function selectRadio(group, value, el) {
+      el.closest('.radio-group').querySelectorAll('.radio-item').forEach(i => i.classList.remove('selected'));
+      el.classList.add('selected');
+      radioValues[group] = value;
+      if (group === 'atendimento') {
+        const crmField = document.getElementById('crm-field');
+        if (value === 'crm') {
+          crmField.classList.add('show');
+        } else {
+          crmField.classList.remove('show');
+          document.getElementById('qual-crm').value = '';
+        }
+      }
+    }
+
+    // ── Submit ──
+    function submitForm() {
+      if (!validateStep(4)) return;
+      const formData = {
+        nome:         document.getElementById('nome').value.trim(),
+        whatsapp:     document.getElementById('whatsapp').value.trim(),
+        empresa:      document.getElementById('empresa').value.trim(),
+        segmento:     document.getElementById('segmento').value,
+        atendimento:  radioValues['atendimento'],
+        crm:          radioValues['atendimento'] === 'crm' ? document.getElementById('qual-crm').value.trim() : null,
+        numeros:      document.getElementById('numeros').value.trim(),
+        funcionarios: document.getElementById('funcionarios').value.trim(),
+        media:        radioValues['media'],
+      };
+      console.log('Dados do formulário:', formData);
+      // TODO: envie formData para seu backend / webhook aqui
+
+      // Redireciona para a página de obrigado
+      window.location.href = 'obrigado.html';
+    }
+
+    // ── WhatsApp mask ──
+    document.getElementById('whatsapp').addEventListener('input', function () {
+      let v = this.value.replace(/\D/g, '').substring(0, 11);
+      if (v.length > 6) v = '(' + v.substring(0,2) + ') ' + v.substring(2,7) + '-' + v.substring(7);
+      else if (v.length > 2) v = '(' + v.substring(0,2) + ') ' + v.substring(2);
+      else if (v.length > 0) v = '(' + v;
+      this.value = v;
+    });
+
+    // ── Scroll reveal ──
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // ── Init ──
+    updateProgress();
+  </script>
+</body>
+</html>

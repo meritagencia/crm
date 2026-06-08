@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obrigado! | IA Day</title>
+  <meta name="description" content="Recebemos suas informações. Nosso time de especialistas entrará em contato em breve pelo WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:           #040410;
+      --bg-soft:      #06060f;
+      --panel:        #0a0a1a;
+      --panel-2:      #10101e;
+      --line:         rgba(255,255,255,0.07);
+      --line-strong:  rgba(39,83,227,0.30);
+      --text:         #eef0ff;
+      --muted:        #9090b8;
+      --muted-2:      #5a5a7a;
+      --accent:       #2753E3;
+      --accent-l:     #4d70f0;
+      --accent-soft:  #8faaff;
+      --radius:       20px;
+      --shadow:       0 30px 120px rgba(39,83,227,0.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(39,83,227,0.22), transparent 34rem),
+        radial-gradient(circle at 80% 20%,  rgba(77,112,240,0.10), transparent 28rem),
+        linear-gradient(180deg, #06060f 0%, #040410 35%, #06060f 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Grid pattern */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(39,83,227,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(39,83,227,0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(circle at center, transparent 0, rgba(4,4,16,0.76) 72%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; outline: none; }
+    .shell { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
+
+    /* ── NAV ── */
+    .nav {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(4,4,16,0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      width: 100%;
+    }
+    .nav-inner {
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 800; letter-spacing: -.02em; font-size: 18px;
+    }
+    .brand-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    /* ── BTN ── */
+    .btn {
+      position: relative; overflow: hidden; isolation: isolate;
+      min-height: 46px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: #fff; padding: 0 26px;
+      font-weight: 700; font-size: 14px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      font-family: Inter, sans-serif; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+    }
+    .btn.primary {
+      border-color: rgba(39,83,227,0.7);
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent-l), var(--accent));
+      box-shadow: 0 0 34px rgba(39,83,227,0.30);
+      font-size: 15px; padding: 14px 32px; min-height: auto;
+    }
+    .btn.primary:hover { box-shadow: 0 0 52px rgba(39,83,227,0.50); transform: translateY(-2px); }
+
+    /* ── MAIN ── */
+    .thank-you-section {
+      position: relative;
+      flex-grow: 1;
+      display: grid; place-items: center;
+      padding: 60px 0 80px;
+      overflow: hidden;
+    }
+
+    /* Animated columns bg */
+    .hero-animation-grid {
+      position: absolute; inset: 0; z-index: 0;
+      display: grid; grid-template-columns: repeat(12, minmax(0,1fr));
+      pointer-events: none; opacity: .20;
+      mask-image: radial-gradient(circle at 50% 50%, black, transparent 76%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, black, transparent 76%);
+    }
+    .bg-column {
+      min-height: 100%;
+      border-right: 1px solid rgba(39,83,227,0.18);
+      background: linear-gradient(180deg, rgba(39,83,227,0), rgba(39,83,227,0.22), rgba(77,112,240,0.10));
+      clip-path: inset(100% 0 0 0);
+      transition: clip-path 1500ms cubic-bezier(0.65,0,0.35,1);
+    }
+    .bg-column.active { clip-path: inset(0 0 0 0); }
+
+    /* Content */
+    .content-wrapper {
+      position: relative; z-index: 1;
+      text-align: center; max-width: 760px; width: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 28px;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--accent-soft);
+      border: 1px solid rgba(39,83,227,0.28);
+      background: rgba(39,83,227,0.09);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e; box-shadow: 0 0 18px #22c55e;
+    }
+
+    /* Title */
+    h1 {
+      font-size: clamp(2.2rem, 4.8vw, 4rem);
+      line-height: 1.05; font-weight: 800;
+      letter-spacing: -.03em; color: var(--text); max-width: 640px;
+      font-family: Impact, 'Arial Narrow', sans-serif; text-transform: uppercase;
+    }
+    .hl-text {
+      display: block; margin-top: 0.1em;
+      color: var(--accent-l);
+    }
+
+    /* Char animation */
+    .char {
+      display: inline-block; opacity: 0;
+      transform: translateY(60%);
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      transition:
+        opacity 700ms cubic-bezier(0.16,1,0.3,1),
+        transform 700ms cubic-bezier(0.16,1,0.3,1),
+        clip-path 700ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .word { display: inline-block; white-space: nowrap; }
+    .char.revealed {
+      opacity: 1; transform: translateY(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* Animate on scroll */
+    .animate-on-scroll {
+      opacity: .01; filter: blur(10px); transform: translateY(24px);
+      transition: opacity 900ms cubic-bezier(.25,.46,.45,.94),
+                  filter 900ms cubic-bezier(.25,.46,.45,.94),
+                  transform 900ms cubic-bezier(.25,.46,.45,.94);
+    }
+    .animate-on-scroll.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
+
+    /* Info card */
+    .info-card {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-top: 2px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      background: linear-gradient(145deg, rgba(39,83,227,0.09), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      max-width: 560px; width: 100%;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+    .info-card::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      border-radius: inherit; opacity: 0;
+      background: radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(39,83,227,0.12), transparent 42%);
+      transition: opacity 400ms ease;
+    }
+    .info-card:hover::before { opacity: 1; }
+    .info-card:hover {
+      border-color: var(--accent);
+      background: linear-gradient(145deg, rgba(39,83,227,0.14), rgba(255,255,255,0.03));
+    }
+    .info-card::after {
+      content: '';
+      position: absolute; inset: auto -20% -35% -20%; height: 150px;
+      background: radial-gradient(circle, rgba(39,83,227,0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Success mark */
+    .success-mark {
+      width: 60px; height: 60px;
+      display: grid; place-items: center;
+      margin: 0 auto 20px; border-radius: 50%;
+      color: #bbf7d0;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.28);
+      font-size: 26px; font-weight: 800;
+    }
+
+    .info-card p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .info-card strong { color: #fff; }
+
+    .actions {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 6px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--line);
+      background: var(--bg);
+      padding: 28px 0; width: 100%;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    }
+    .footer p, .legal { color: var(--muted-2); font-size: 13px; }
+
+    @media (max-width: 768px) {
+      .footer-inner { flex-direction: column; text-align: center; }
+      .hero-animation-grid { grid-template-columns: repeat(6,minmax(0,1fr)); }
+      .info-card { padding: 28px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <span class="brand">
+        <span class="brand-dot"></span>
+        IA Day
+      </span>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="thank-you-section">
+    <div class="hero-animation-grid" id="bg-grid" aria-hidden="true"></div>
+
+    <div class="shell content-wrapper">
+      <span class="eyebrow">Recebemos seu contato</span>
+
+      <h1 id="hero-title">
+        Obrigado pelo<br>seu contato!<span class="hl-text">Em breve falaremos com você.</span>
+      </h1>
+
+      <div class="info-card animate-on-scroll">
+        <div class="success-mark">✓</div>
+        <p>
+          Nosso time de especialistas já foi notificado.
+          Em até <strong>24 horas úteis</strong>, entraremos em contato com você
+          pelo <strong>WhatsApp informado</strong> para entender melhor
+          o seu cenário e apresentar a melhor solução para o seu atendimento.
+        </p>
+      </div>
+
+      <div class="actions animate-on-scroll">
+        <a href="index.html" class="btn primary">← Voltar para a página</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p class="legal">© 2025 · Todos os direitos reservados.</p>
+      <p class="legal">IA Day</p>
+    </div>
+  </footer>
+
+  <script>
+    (function initPage() {
+      // 1. Colunas animadas de fundo
+      const bgGrid = document.getElementById('bg-grid');
+      if (bgGrid) {
+        const count = window.innerWidth < 640 ? 6 : 12;
+        for (let i = 0; i < count; i++) {
+          const col = document.createElement('div');
+          col.className = 'bg-column';
+          bgGrid.appendChild(col);
+          setTimeout(() => col.classList.add('active'), 120 + i * 90);
+        }
+      }
+
+      // 2. Animação char-by-char do título
+      const title = document.getElementById('hero-title');
+      if (title) {
+        let charIndex = 0;
+        const splitNode = node => {
+          const frag = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach(token => {
+            if (!token) return;
+            if (/^\s+$/.test(token)) { frag.appendChild(document.createTextNode(token)); return; }
+            const word = document.createElement('span');
+            word.className = 'word';
+            token.split('').forEach(ch => {
+              const span = document.createElement('span');
+              span.className = 'char';
+              span.textContent = ch;
+              span.style.transitionDelay = `${Math.min(charIndex * 22, 1100)}ms`;
+              charIndex++;
+              word.appendChild(span);
+            });
+            frag.appendChild(word);
+          });
+          node.replaceWith(frag);
+        };
+        const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(splitNode);
+        setTimeout(() => title.querySelectorAll('.char').forEach(c => c.classList.add('revealed')), 120);
+      }
+
+      // 3. Fade-in stagger dos elementos
+      const els = document.querySelectorAll('.eyebrow, .info-card, .actions, .legal');
+      els.forEach((el, i) => {
+        el.classList.add('animate-on-scroll');
+        el.style.transitionDelay = `${Math.min(i * 100, 400)}ms`;
+        el.classList.add('in-view');
+      });
+
+      // 4. Flashlight hover no card
+      window.addEventListener('pointermove', e => {
+        document.querySelectorAll('.info-card').forEach(el => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+          el.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+        });
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
