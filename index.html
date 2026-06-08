@@ -688,8 +688,9 @@ footer {
     }
 
     // ── Submit ──
-    function submitForm() {
+    async function submitForm() {
       if (!validateStep(4)) return;
+
       const formData = {
         nome:         document.getElementById('nome').value.trim(),
         whatsapp:     document.getElementById('whatsapp').value.trim(),
@@ -701,8 +702,22 @@ footer {
         funcionarios: document.getElementById('funcionarios').value.trim(),
         media:        radioValues['media'],
       };
-      console.log('Dados do formulário:', formData);
-      // TODO: envie formData para seu backend / webhook aqui
+
+      // Desabilita o botão para evitar duplo envio
+      const btnSubmit = document.querySelector('.btn-submit');
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Enviando...';
+
+      try {
+        await fetch('https://merit-n8n.jcspip.easypanel.host/webhook/ad313037-fed7-4a09-949c-685c7d101ef6', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+      } catch (err) {
+        console.warn('Webhook error:', err);
+        // Mesmo em caso de erro de rede, redireciona para não bloquear o usuário
+      }
 
       // Redireciona para a página de obrigado
       window.location.href = 'obrigado.html';
